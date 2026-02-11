@@ -1,20 +1,25 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package main;
 
+import java.awt.Color;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JPopupMenu;
+import swing.DataSearch;
+import swing.PainelBusca;
+
 /**
- *
- * @author di_an
+ * @author Diego Barbosa da Silva
  */
 public class Main extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Main
-     */
+    
+    private JPopupMenu menu;
+    private PainelBusca busca;
+    
     public Main() {
         initComponents();
+        menu = new JPopupMenu();
+        menu.setBorder(BorderFactory.createLineBorder(new Color(164, 164, 164)));
+        menu.add(busca);
     }
 
     /**
@@ -31,6 +36,16 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         campoBusca.setPrefixIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/search_1.png"))); // NOI18N
+        campoBusca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                campoBuscaMouseClicked(evt);
+            }
+        });
+        campoBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                campoBuscaKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -53,6 +68,19 @@ public class Main extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void campoBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoBuscaMouseClicked
+        menu.show(campoBusca, 0, campoBusca.getHeight());
+    }//GEN-LAST:event_campoBuscaMouseClicked
+
+    private void campoBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoBuscaKeyReleased
+        String texto = campoBusca.getText().trim().toLowerCase();
+        busca.setData(search(texto));
+    }//GEN-LAST:event_campoBuscaKeyReleased
+
+    private List<DataSearch> search(String search) {
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
