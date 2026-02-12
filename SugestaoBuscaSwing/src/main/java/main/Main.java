@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JPopupMenu;
@@ -11,13 +12,14 @@ import swing.PainelBusca;
  * @author Diego Barbosa da Silva
  */
 public class Main extends javax.swing.JFrame {
-    
+
     private JPopupMenu menu;
     private PainelBusca busca;
-    
+
     public Main() {
         initComponents();
         menu = new JPopupMenu();
+        busca = new PainelBusca();
         menu.setBorder(BorderFactory.createLineBorder(new Color(164, 164, 164)));
         menu.add(busca);
     }
@@ -75,12 +77,36 @@ public class Main extends javax.swing.JFrame {
     private void campoBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoBuscaKeyReleased
         String texto = campoBusca.getText().trim().toLowerCase();
         busca.setData(search(texto));
+        if (busca.getItemSize() > 0) {
+            menu.show(campoBusca, 0, campoBusca.getHeight());
+        }
     }//GEN-LAST:event_campoBuscaKeyReleased
 
     private List<DataSearch> search(String search) {
+        int limite = 7;
+        List<DataSearch> lista = new ArrayList<>();
+        String dataTeste[] = {"Smartphone Samsung Galaxy",
+            "Notebook Dell Inspiron",
+            "Fone de Ouvido Bluetooth",
+            "Smart TV LG 50 polegadas",
+            "Tablet Apple iPad",
+            "Câmera Digital Canon",
+            "Mouse Gamer Logitech",
+            "Teclado Mecânico Redragon",
+            "Monitor LED Samsung 24 polegadas",
+            "Caixa de Som JBL Portátil"};
+        for (String d:dataTeste){
+            if(d.toLowerCase().contains(search)) {
+                lista.add(new DataSearch(d, false));
+                if (lista.size() == limite) {
+                    break;
+                }
+            }
+        }
         
+        return lista;
     }
-    
+
     /**
      * @param args the command line arguments
      */

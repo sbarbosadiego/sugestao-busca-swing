@@ -28,6 +28,10 @@ public class PainelBusca extends javax.swing.JPanel {
         revalidate();
         // Refresh component
     }
+    
+    public int getItemSize() {
+        return getComponentCount();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
