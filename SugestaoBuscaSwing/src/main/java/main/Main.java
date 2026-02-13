@@ -22,6 +22,7 @@ public class Main extends javax.swing.JFrame {
         busca = new PainelBusca();
         menu.setBorder(BorderFactory.createLineBorder(new Color(164, 164, 164)));
         menu.add(busca);
+        menu.setFocusable(false);
     }
 
     /**
@@ -79,6 +80,8 @@ public class Main extends javax.swing.JFrame {
         busca.setData(search(texto));
         if (busca.getItemSize() > 0) {
             menu.show(campoBusca, 0, campoBusca.getHeight());
+            menu.setPopupSize(menu.getWidth(), (busca.getItemSize() * 35) + 2);
+            // * 2 top and bot border
         }
     }//GEN-LAST:event_campoBuscaKeyReleased
 
@@ -95,15 +98,15 @@ public class Main extends javax.swing.JFrame {
             "Teclado Mecânico Redragon",
             "Monitor LED Samsung 24 polegadas",
             "Caixa de Som JBL Portátil"};
-        for (String d:dataTeste){
-            if(d.toLowerCase().contains(search)) {
+        for (String d : dataTeste) {
+            if (d.toLowerCase().contains(search)) {
                 lista.add(new DataSearch(d, false));
                 if (lista.size() == limite) {
                     break;
                 }
             }
         }
-        
+
         return lista;
     }
 
