@@ -79,9 +79,11 @@ public class Main extends javax.swing.JFrame {
         String texto = campoBusca.getText().trim().toLowerCase();
         busca.setData(search(texto));
         if (busca.getItemSize() > 0) {
+            // * 2 top and bot border
             menu.show(campoBusca, 0, campoBusca.getHeight());
             menu.setPopupSize(menu.getWidth(), (busca.getItemSize() * 35) + 2);
-            // * 2 top and bot border
+        } else {
+            menu.setVisible(false);
         }
     }//GEN-LAST:event_campoBuscaKeyReleased
 
