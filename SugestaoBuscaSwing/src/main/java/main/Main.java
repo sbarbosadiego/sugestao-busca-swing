@@ -72,7 +72,9 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void campoBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_campoBuscaMouseClicked
-        menu.show(campoBusca, 0, campoBusca.getHeight());
+        if (busca.getItemSize() > 0) {
+            menu.show(campoBusca, 0, campoBusca.getHeight());
+        }
     }//GEN-LAST:event_campoBuscaMouseClicked
 
     private void campoBuscaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_campoBuscaKeyReleased
@@ -87,6 +89,12 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_campoBuscaKeyReleased
 
+    /**
+     * Método com os itens da lista.
+     *
+     * @param search
+     * @return
+     */
     private List<DataSearch> search(String search) {
         int limite = 7;
         List<DataSearch> lista = new ArrayList<>();
@@ -102,7 +110,14 @@ public class Main extends javax.swing.JFrame {
             "Caixa de Som JBL Portátil"};
         for (String d : dataTeste) {
             if (d.toLowerCase().contains(search)) {
-                lista.add(new DataSearch(d, false));
+                boolean story = isStory(d);
+                if (story) {
+                    lista.add(0, new DataSearch(d, story));
+                    // adiciona ou insere no primeiro resultado
+                } else {
+                    lista.add(new DataSearch(d, story));
+                    // adiciona ao último resultado
+                }
                 if (lista.size() == limite) {
                     break;
                 }
@@ -110,6 +125,26 @@ public class Main extends javax.swing.JFrame {
         }
 
         return lista;
+    }
+
+    String dataStory[] = {"Smartphone Samsung Galaxy",
+        "Notebook Dell Inspiron",
+        "Fone de Ouvido Bluetooth"};
+
+    /**
+     * Método gera a lista de histórico de itens pesquisados.
+     *
+     * @param texto
+     * @return
+     */
+    private boolean isStory(String texto) {
+
+        for (String d : dataStory) {
+            if (d.toLowerCase().equals(texto.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**

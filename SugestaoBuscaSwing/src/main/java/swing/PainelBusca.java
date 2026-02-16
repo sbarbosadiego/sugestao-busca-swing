@@ -8,9 +8,12 @@ import net.miginfocom.swing.MigLayout;
  */
 public class PainelBusca extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PainelBusca
-     */
+    private EventClick event;
+    
+    public void addEventClick(EventClick event) {
+        
+    }
+    
     public PainelBusca() {
         initComponents();
         setLayout(new MigLayout("fillx", "0[]0", "0[]"));

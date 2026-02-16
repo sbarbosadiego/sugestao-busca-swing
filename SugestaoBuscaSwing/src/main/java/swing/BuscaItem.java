@@ -1,7 +1,10 @@
 package swing;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
  * @author Diego Barbosa da Silva
@@ -14,19 +17,39 @@ public class BuscaItem extends javax.swing.JPanel {
     }
     
     private void setData(DataSearch data) {
+        addEventMouse(this);
         lbTexto.setText(data.getTexto());
         if (data.isStory()) {
             lbTexto.setForeground(new Color(29, 106, 205));
             lbIcone.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icones/time.png")));
-
+            lbRemover.setCursor(new Cursor(Cursor.HAND_CURSOR));
         } else {
             lbRemover.setText("");
-            lbRemover.setCursor(new Cursor(Cursor.HAND_CURSOR) {
-            });
         }
             
     }
+    
+    /**
+     * Método que controla a cor de fundo do item, ao passar o mouse sobre ele.
+     * @param com 
+     */
+    private void addEventMouse(Component com) {
+        com.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                setBackground(new Color(215, 216, 216));
+            }
 
+            @Override
+            public void mouseExited(MouseEvent e) {
+                setBackground(Color.WHITE);
+            }
+            
+            
+            
+        });
+    }
+        
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
