@@ -3,6 +3,7 @@ package swing;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Cursor;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -18,6 +19,8 @@ public class BuscaItem extends javax.swing.JPanel {
     
     private void setData(DataSearch data) {
         addEventMouse(this);
+        addEventMouse(lbTexto);
+        addEventMouse(lbRemover);
         lbTexto.setText(data.getTexto());
         if (data.isStory()) {
             lbTexto.setForeground(new Color(29, 106, 205));
@@ -49,6 +52,14 @@ public class BuscaItem extends javax.swing.JPanel {
             
         });
     }
+    
+    private ActionListener eventClick;
+    private ActionListener eventRemove;
+    
+    public void AddEvent(ActionListener eventClick, ActionListener eventRemove) {
+        this.eventClick = eventClick;
+        this.eventRemove = eventRemove;
+    }
         
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,10 +83,20 @@ public class BuscaItem extends javax.swing.JPanel {
         lbTexto.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         lbTexto.setForeground(new java.awt.Color(48, 48, 48));
         lbTexto.setText("Texto..");
+        lbTexto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbTextoMouseClicked(evt);
+            }
+        });
 
         lbRemover.setForeground(new java.awt.Color(163, 163, 163));
         lbRemover.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbRemover.setText("Remover");
+        lbRemover.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbRemoverMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -86,7 +107,7 @@ public class BuscaItem extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbRemover, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
+                .addComponent(lbRemover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -97,6 +118,16 @@ public class BuscaItem extends javax.swing.JPanel {
                 .addComponent(lbRemover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lbRemoverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbRemoverMouseClicked
+        if (!lbRemover.getText().trim().equals("")) {
+            eventRemove.actionPerformed(null);
+        }
+    }//GEN-LAST:event_lbRemoverMouseClicked
+
+    private void lbTextoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbTextoMouseClicked
+        eventClick.actionPerformed(null);
+    }//GEN-LAST:event_lbTextoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

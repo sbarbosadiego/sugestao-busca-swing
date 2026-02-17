@@ -1,5 +1,7 @@
 package swing;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import net.miginfocom.swing.MigLayout;
 
@@ -11,7 +13,7 @@ public class PainelBusca extends javax.swing.JPanel {
     private EventClick event;
     
     public void addEventClick(EventClick event) {
-        
+        this.event = event;
     }
     
     public PainelBusca() {
@@ -23,6 +25,20 @@ public class PainelBusca extends javax.swing.JPanel {
         this.removeAll();
         for(DataSearch d:data) {
             BuscaItem item = new BuscaItem(d);
+            // add event
+            item.AddEvent(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // quando clicar
+                    event.itemClick(d);
+                }
+            }, new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // quando remover
+                    event.itemRemove(item, d);
+                }
+            });
             this.add(item, "wrap");
             // wrap significa adicionar um novo item após esse
             // this for miglayout option

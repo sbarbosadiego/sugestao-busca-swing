@@ -1,11 +1,13 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.JPopupMenu;
 import swing.DataSearch;
+import swing.EventClick;
 import swing.PainelBusca;
 
 /**
@@ -23,6 +25,25 @@ public class Main extends javax.swing.JFrame {
         menu.setBorder(BorderFactory.createLineBorder(new Color(164, 164, 164)));
         menu.add(busca);
         menu.setFocusable(false);
+        busca.addEventClick(new EventClick() {
+            @Override
+            public void itemClick(DataSearch data) {
+                menu.setVisible(false);
+                campoBusca.setText(data.getTexto());
+                System.out.println("Click Item : " + data.getTexto());
+            }
+
+            @Override
+            public void itemRemove(Component com, DataSearch data) {
+                busca.remove(com);
+                removeHistory(data.getTexto());
+                menu.setPopupSize(menu.getWidth(), (busca.getItemSize() * 35) + 2);
+                if (busca.getItemSize() == 0) {
+                    menu.setVisible(false);
+                }
+                System.out.println("Remove Item : " + data.getTexto());
+            }
+        });
     }
 
     /**
@@ -130,6 +151,15 @@ public class Main extends javax.swing.JFrame {
     String dataStory[] = {"Smartphone Samsung Galaxy",
         "Notebook Dell Inspiron",
         "Fone de Ouvido Bluetooth"};
+
+    private void removeHistory(String texto) {
+        for (int i = 0; i < dataStory.length; i++) {
+            String d = dataStory[i];
+            if (d.toLowerCase().equals(texto.toLowerCase())) {
+                dataStory[i] = "";
+            }
+        }
+    }
 
     /**
      * Método gera a lista de histórico de itens pesquisados.
